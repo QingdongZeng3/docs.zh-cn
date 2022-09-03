@@ -186,6 +186,7 @@ StarRocks 提供 Flink CDC connector、flink-connector-starrocks 和 StarRocks-m
     'sink.properties.column_separator' = '\\x01'
     'sink.properties.row_delimiter' = '\\x02'  
     ```
+    
 * 如果需要导入的表过多，占用了大量Flink Job资源，对于Flink-1.13及以上版本，可以使用STATEMENT SET语法将多个表的CDC任务合并到同一个Job。方法如下：打开result/flink-create.x.sql文件，调整里面的sql顺序，其中的create database，create sink/source table 的位置保持不变，将所有的insert into语句调整位置到文件末尾。然后在insert语句的第一句前面加上一行  BEGIN STATEMENT SET;  在最后一条insert语句后面加上一行END;  最后执行 bin/sql-client.sh -f flink-create.1.sql。示例：
 
     ``` sql
